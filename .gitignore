@@ -63,3 +63,5 @@
 .env
 
 # End of https://www.gitignore.io/api/symfony
+
+.env
