@@ -1,5 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Main Page</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="text-center">My delivery requests</p>
+                <a class="d-center" href = "#" {#"{{ path('shopping_list') }}"#}>
+                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
+                </a>
+                {% for shoppingList in requestedDeliveries %}
+                    <div>
+                        <a href = {{path('shopping_list_display', {'id':shoppingList.getId()}) }}>
+                            <p class="d-inline float-left">
+                                Ordered at {{shoppingList.getCreatedAt()|date('Y-m-d')}}
+                            </p>
+                            <p class="d-inline float-right">
+                                {{shoppingList.getTotalPrice()}}€
+                            </p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="col">
+            </div>
+
+
+            <div class="col">
+                <p class="text-center">My deliveries</p>
+                <a class="d-center" href = "#" {#"{{ path('delivery_list') }}"#}>
+                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
+                </a>
+                {% for delivery in deliveries %}
+                    <div>
+                        <a href = {{path('delivery_list_display', {'id':delivery.getId()}) }}>
+                            <p class="d-inline float-left">
+                                Delivered at {#{{delivery.getCreatedAt()|date('Y-m-d')}} #} "some day"
+                            </p>
+                            <p class="d-inline float-right">
+                                {{delivery.getShoppingLists()|length}}
+                            </p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

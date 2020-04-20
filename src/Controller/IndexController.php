@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Delivery;
+use App\Entity\ShoppingList;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +21,14 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $repo = $this->em->getRepository(User::class);
-        dump($repo->findAll());
+        $repoShoppingList = $this->em->getRepository(ShoppingList::class);
+        $requestedDeliveries = $repoShoppingList->findBy(['user' => $this->getUser()]);
+        $repoDelivery = $this->em->getRepository(Delivery::class);
+        $deliveries = $repoDelivery->findBy(['user' => $this->getUser()]);
 
-        return $this->render('index/index.html.twig');
+        return $this->render('index/index.html.twig', [
+            "requestedDeliveries" => $requestedDeliveries,
+            "deliveries" => $deliveries,
+        ]);
     }
 }
