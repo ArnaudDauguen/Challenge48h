@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block cdn %}{% endblock %}
+    </head>
+    <body class="">
+        {% block navbar %}
+            {% embed 'navbar.html.twig' %}{% endembed %}
+        {% endblock navbar %}
+        <div class="container-fluid mt-5">
+            <div class="row d-flex flex-column justify-content-start align-content-center">
+
+                {% block body %}
+                {% endblock body %}
+            </div>
+        </div>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>
