@@ -22,14 +22,14 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $price;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
+     */
+    private $price;
 
     public function getId(): ?int
     {
@@ -48,12 +48,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?bool
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(bool $price): self
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
