@@ -3,7 +3,7 @@
 ## <p align="center">**Challenge 48h** 
 #### <p align="center"> **Dauguen Arnaud - Duart Quentin - Flores Anthony - Sella Justin**
 
-## **PROJET**
+#
 
 ### **Contexte**
 
@@ -56,16 +56,22 @@ Un serveur web et un serveur base de données pour le moment. Note : nous pouvon
 Onglet gantt
 https://docs.google.com/spreadsheets/d/1xpiJ3AvW5l4EnjRoyrckZkVDSRcZWYOkEhNTe0-ypkU/edit?usp=sharing
 
-## Diagramme de GANTT
+
+
+## **Diagramme de GANTT**
 
 Onglet Budget
 https://docs.google.com/spreadsheets/d/1xpiJ3AvW5l4EnjRoyrckZkVDSRcZWYOkEhNTe0-ypkU/edit?usp=sharing
 
 
-## **Lancement**
+# **Installation & Lancement**
 
-Installer les dépendences : ```cd app && npm install```
 
-Lancer le server : ```npm start```
 
-Lancer le l'api :  ```node main.js```
+# Annexes 
+#### Prototype graphique
+
+![Prototype](/readme_folder/images/unknown.png "Prototype")
+![Prototype](/readme_folder/images/unknown1.png "Prototype")
+![Prototype](/readme_folder/images/unknown2.png "Prototype")
+![Prototype](/readme_folder/images/unknown3.png "Prototype")
