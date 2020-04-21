@@ -19,9 +19,6 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $repo = $this->em->getRepository(User::class);
-        dump($repo->findAll());
-
         return $this->render('index/index.html.twig');
     }
 }

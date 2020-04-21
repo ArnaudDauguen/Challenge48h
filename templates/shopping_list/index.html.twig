@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ShoppingListController!{% endblock %}
+
+{% block body %}
+<div class="row align-items-start">
+    <div class="offset-1 col-6 table-responsive">
+        <table class="table" id="product-list" width="100%">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" class="text-right">Price</th>
+                    <th scope="col" width="10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr product-data-id="{{ product.id }}">
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.description }}</td>
+                        <td class="text-right">{{ (product.price)|number_format(2, ',', ' ') }} €</td>
+                        <td class="text-center"><a href="#" class="add-product"><i class="fa fa-shopping-basket"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+    </div>
+    <div class="offset-1 col-4 sticky-top p-5">
+        {{ form_start(form, {attr: {class: 'card' }} )}}
+            <div class="card-header">
+                New shopping list
+            </div>
+            {% set data_prototype %}
+                <div class="card-text d-flex justify-content-between basket-product">
+                    <p>__PRODUCT__</p>
+                    <div class="row form-group d-flex justify-content-end">
+                        <div hidden>
+                            {{ form_widget(form.products.vars.prototype.product) }}
+                        </div>
+                        {{ form_widget(form.products.vars.prototype.quantity, {attr: {class: 'col-4 mr-2'}}) }}
+                        <span class="d-flex align-items-center"><a href="#" class="remove-product"><i class="fa fa-trash"></i></a></span>
+                    </div>
+                </div>
+            {% endset %}
+            <div class="card-body" id="basket" data-prototype="{{ data_prototype|e }}" data-counter="{{ form.products|length }}">
+                <div class="card-title">
+                    Delivery between {{ form_widget(form.expectedDeliveryStart) }} and {{ form_widget(form.expectedDeliveryEnd) }}
+                </div>
+                {% for product in form.products %}
+                <div class="card-text d-flex justify-content-between basket-product">
+                    <p>{{ product.product.vars.data.name }}</p>
+                    <div class="row form-group d-flex justify-content-end">
+                        <div hidden>
+                            {{ form_widget(product.product) }}
+                        </div>
+                        {{ form_widget(product.quantity, {attr: {class: 'col-4 mr-2'}}) }}
+                        <span class="d-flex align-items-center"><a href="#" class="remove-product"><i class="fa fa-trash"></i></a></span>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="d-flex justify-content-around row">
+                    <div class="col-6">
+                        {{ form_widget(form.cancel, {attr: {class: 'btn btn-danger btn-block'}} ) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_widget(form.submit, {attr: {class: 'btn btn-success btn-block'}} ) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_widget(form._token) }}
+        {{ form_end(form, {render_rest: false}) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var table = $("#product-list").DataTable({
+                'pagingType': 'full',
+                'responsive': true,
+                'autoWidth': true,
+                'pageLength': 20,
+                'lengthChange': false
+            })
+
+            var form = $("#basket")
+            var basket = {};
+            $('#basket > basket-product').each(function(elem){
+                let input = $($(elem).find('input')[0])
+                basket[input.val()] = $(elem)
+            })
+
+            $("#product-list").on('click', '.add-product', function(event) {
+                let t = $(event.target)
+                let row = $(t.closest('tr'))
+                let cols = row.find('td')
+                let productName = $(cols[0]).text()
+                let productId = parseInt(row.attr('product-data-id'))
+
+                if (basket[productId] !== undefined) {
+                    let input = $(basket[productId].find('input')[0])
+                    input.val(parseInt(input.val()) + 1)
+                    return
+                }
+
+                let count = parseInt(form.attr('data-counter')) + 1
+                form.attr('data-counter', count)
+                let prototype = form.attr('data-prototype')
+                prototype = prototype.replace(/__name__/g, count)
+                prototype = prototype.replace(/__PRODUCT__/g, productName)
+                prototype = $(prototype)
+                let inputs = prototype.find('input')
+                $(prototype.find('select')).find('option').each(function(i, elem){
+                    if ($(elem).attr('value') == productId) $(elem).attr('selected', 'selected')
+                })
+                $(inputs[0]).val(1)
+                $(form.find('.card-title').after(prototype))
+                basket[productId] = prototype
+                console.log(basket)
+            })
+
+            $('#basket').on('click', '.remove-product', function(event){
+                let t = $(event.target)
+                let row = $(t.closest('.basket-product'))
+                row.find('select option').each(function(i, elem){
+                    if ($(elem).attr('selected') === 'selected') delete basket[$(elem).attr('value')]
+                })
+                row.remove()
+            })
+        })
+    </script>
+{% endblock %}

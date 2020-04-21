@@ -65,7 +65,7 @@ class ShoppingList
     private $delivery;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductsList", mappedBy="shoppingList", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductsList", mappedBy="shoppingList", orphanRemoval=true, cascade={"persist"})
      */
     private $products;
 

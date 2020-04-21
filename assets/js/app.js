@@ -13,5 +13,9 @@ require('bootstrap')
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 
 const $ = require('jquery')
+global.$ = global.jQuery = $
+require('jquery-ui')
+var dt = require('datatables.net')
 
+import '@fortawesome/fontawesome-free/js/all'
 
