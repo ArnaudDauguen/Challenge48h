@@ -75,3 +75,12 @@ https://docs.google.com/spreadsheets/d/1mv3uT2LTPALx8Z5l5oaMWc7nugBOWJ_-Z2VxXd4p
 ![Prototype](/readme_folder/images/unknown2.png "Prototype")
 ![Prototype](/readme_folder/images/unknown3.png "Prototype")
 
+#### Captures d'écran
+Page principale
+![Screenshot](/readme_folder/images/mainpage.png "Main Page")
+
+Création de la liste de courses
+![Screenshot](/readme_folder/images/shoppinglist.png "Shopping list")
+
+Choix des courses à livrer
+![Screenshot](/readme_folder/images/livreur.png "Livreur")
