@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShoppingListController!{% endblock %}
-
 {% block body %}
 <div class="row align-items-start">
     <div class="offset-1 col-6 table-responsive">
         <table class="table" id="product-list" width="100%">
             <thead>
                 <tr>
-                    <th scope="col">Product</th>
+                    <th scope="col">Produit</th>
                     <th scope="col">Description</th>
-                    <th scope="col" class="text-right">Price</th>
+                    <th scope="col" class="text-right">Prix</th>
                     <th scope="col" width="10%"></th>
                 </tr>
             </thead>
@@ -29,7 +27,7 @@
     <div class="offset-1 col-4 sticky-top p-5">
         {{ form_start(form, {attr: {class: 'card' }} )}}
             <div class="card-header">
-                New shopping list
+                Nouvelle liste de courses
             </div>
             {% set data_prototype %}
                 <div class="card-text d-flex justify-content-between basket-product">
@@ -45,7 +43,7 @@
             {% endset %}
             <div class="card-body" id="basket" data-prototype="{{ data_prototype|e }}" data-counter="{{ form.products|length }}">
                 <div class="card-title">
-                    Delivery between {{ form_widget(form.expectedDeliveryStart) }} and {{ form_widget(form.expectedDeliveryEnd) }}
+                    Livraison entre le {{ form_widget(form.expectedDeliveryStart) }} et le {{ form_widget(form.expectedDeliveryEnd) }}
                 </div>
                 {% for product in form.products %}
                 <div class="card-text d-flex justify-content-between basket-product">
@@ -61,10 +59,10 @@
                 {% endfor %}
                 <div class="d-flex justify-content-around row">
                     <div class="col-6">
-                        <a href="{{ path('index') }}" class="btn btn-danger btn-block">Cancel</a>
+                        <a href="{{ path('index') }}" class="btn btn-danger btn-block">Annuler</a>
                     </div>
                     <div class="col-6">
-                        {{ form_widget(form.submit, {attr: {class: 'btn btn-success btn-block'}} ) }}
+                        {{ form_widget(form.confirmer, {attr: {class: 'btn btn-success btn-block'}} ) }}
                     </div>
                 </div>
             </div>
@@ -94,6 +92,9 @@
             })
 
             $("#product-list").on('click', '.add-product', function(event) {
+                event.preventDefault()
+                event.stopPropagation()
+
                 let t = $(event.target)
                 let row = $(t.closest('tr'))
                 let cols = row.find('td')
@@ -123,6 +124,9 @@
             })
 
             $('#basket').on('click', '.remove-product', function(event){
+                event.preventDefault()
+                event.stopPropagation()
+                
                 let t = $(event.target)
                 let row = $(t.closest('.basket-product'))
                 row.find('select option').each(function(i, elem){

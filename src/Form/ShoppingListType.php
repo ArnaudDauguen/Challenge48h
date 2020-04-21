@@ -35,7 +35,7 @@ class ShoppingListType extends AbstractType
                 'prototype' => true,
                 'required' => true
             ])
-            ->add('submit', SubmitType::class)
+            ->add('confirmer', SubmitType::class)
         ;
     }
 
