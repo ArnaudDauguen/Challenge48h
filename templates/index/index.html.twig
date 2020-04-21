@@ -8,7 +8,7 @@
                 <p>Mes listes de courses</p>
             </div>
             <div class="card-body">
-                <a class="card-text d-flex justify-content-between" href="{{ path('shopping_list') }}">
+                <a class="d-flex justify-content-center" href="{{ path('shopping_list') }}">
                     <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/> {# je sais pas why, faut en mettre pls pour centrer :/ #}
                 </a>
                 {% for shoppingList in requestedDeliveries %}
@@ -31,7 +31,7 @@
                 <p>Mes livraisons de courses</p>
             </div>
             <div class="card-body">
-                <a class="card-text d-flex justify-content-between" href="{{ path('delivery_finder') }}">
+                <a class="d-flex justify-content-center" href="{{ path('delivery_finder') }}">
                     <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/> {# je sais pas why, faut en mettre pls pour centrer :/ #}
                 </a>
                 {% for delivery in deliveries %}
@@ -47,24 +47,4 @@
         </div>
     </div>
 </div>
-    {# <div class="container">
-        <div class="row">
-
-
-            <div class="col">
-                {% for delivery in deliveries %}
-                    <div>
-                        <a href = {{path('delivery_details', {'id':delivery.id }) }}>
-                            <p class="d-inline float-left">
-                                Delivered at {{delivery.getCreatedAt()|date('Y-m-d')}} "some day"
-                            </p>
-                            <p class="d-inline float-right">
-                                {{delivery.getShoppingLists()|length}}
-                            </p>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div> #}
 {% endblock %}
