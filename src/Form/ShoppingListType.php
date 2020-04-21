@@ -36,7 +36,6 @@ class ShoppingListType extends AbstractType
                 'required' => true
             ])
             ->add('submit', SubmitType::class)
-            ->add('cancel', SubmitType::class)
         ;
     }
 

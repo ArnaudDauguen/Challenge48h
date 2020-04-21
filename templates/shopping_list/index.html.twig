@@ -61,7 +61,7 @@
                 {% endfor %}
                 <div class="d-flex justify-content-around row">
                     <div class="col-6">
-                        {{ form_widget(form.cancel, {attr: {class: 'btn btn-danger btn-block'}} ) }}
+                        <a href="{{ path('index') }}" class="btn btn-danger btn-block">Cancel</a>
                     </div>
                     <div class="col-6">
                         {{ form_widget(form.submit, {attr: {class: 'btn btn-success btn-block'}} ) }}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DeliveryController!{% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center">
+    {% for shopping_list in delivery.ShoppingLists %}
+    <div class="col-4">
+        <div class="card">
+           <div class="card-header d-flex justify-content-between">
+                {% if shopping_list.delivery is not null %}<p>Client : {{ shopping_list.user.fullname }}</p>{% endif %}
+                <p>
+                    {% if shopping_list.isDelivered %}
+                        Livré
+                    {% else %}
+                        A livrer avant le {{ shopping_list.expectedDeliveryEnd|date('d/m/Y') }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-body">
+                {% for product in shopping_list.products %}
+                    <div class="card-text d-flex justify-content-between">
+                        <p><span class="mr-2">x{{ product.quantity }}</span> {{ product.product.name }}</p>
+                        <p>{{ product.product.price }} €</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-between card-footer {{ shopping_list.isDelivered ? 'bg-success' : 'bg-warning' }}">
+                {% if not shopping_list.isDelivered %}<a href="{{ path('index') }}" class="btn btn-success">Confirmer la livraison</a>{% endif %}
+                {% if shopping_list.totalPrice is not null %}<p>Total : {{ shopping_list.totalPrice }} €</p>{% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ShoppingList;
 use App\Form\ShoppingListType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,19 @@ class ShoppingListController extends AbstractController
     }
 
     /**
+     * @Route("/shopping/list/{id}", name="shopping_details")
+     */
+    public function details(int $id)
+    {
+        $list = $this->em->getRepository(ShoppingList::class)->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        if (empty($list)) return $this->redirectToRoute('index');
+
+        return $this->render('shopping_list/details.html.twig', [
+            'shopping_list' => $list
+        ]);
+    }
+
+    /**
      * @Route("/shopping", name="shopping_list")
      */
     public function index(Request $request)
@@ -26,22 +40,24 @@ class ShoppingListController extends AbstractController
         $form = $this->createForm(ShoppingListType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
-            if ($form->get('cancel')->isClicked()) return $this->redirectToRoute('index');
+            $shoppingList = $form->getData();
+            $shoppingList
+                ->setUser($this->getUser())
+                ->setCreatedAt(new \DateTime('now'));
 
-            if ($form->isValid())
+            $total = 0;
+            foreach ($shoppingList->getProducts() as $product)
             {
-                dump($form->getData());
-                $shoppingList = $form->getData();
-                $shoppingList
-                    ->setUser($this->getUser())
-                    ->setCreatedAt(new \DateTime('now'));
-                $this->em->persist($shoppingList);
-                $this->em->flush();
-
-                return $this->redirectToRoute('index');
+                $total += $product->getProduct()->getPrice();
             }
+            $shoppingList->setTotalPrice($total);            
+            
+            $this->em->persist($shoppingList);
+            $this->em->flush();
+
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('shopping_list/index.html.twig', [

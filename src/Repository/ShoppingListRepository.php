@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ShoppingList;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -18,33 +19,16 @@ class ShoppingListRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ShoppingList::class);
     }
-
-    // /**
-    //  * @return ShoppingList[] Returns an array of ShoppingList objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findSuitableShoppingLists(User $user)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('root');
+        $qb
+            ->andWhere($qb->expr()->neq('root.user', $user->getId()))
+            ->andWhere('root.deliveredAt IS NULL')
+            ->andWhere('root.expectedDeliveryEnd > CURRENT_TIMESTAMP()')
+            ->setMaxResults(5);
 
-    /*
-    public function findOneBySomeField($value): ?ShoppingList
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery()->getResult();
     }
-    */
 }

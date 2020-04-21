@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col">
                 <p class="text-center">My delivery requests</p>
-                <a class="d-center" href = "#" {#"{{ path('shopping_list') }}"#}>
+                <a class="d-center" href="{{ path('shopping_list') }}">
                     <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
                 </a>
                 {% for shoppingList in requestedDeliveries %}
                     <div>
-                        <a href = {{path('shopping_list_display', {'id':shoppingList.getId()}) }}>
+                        <a href = {{path('shopping_details', {'id': shoppingList.id}) }}>
                             <p class="d-inline float-left">
                                 Ordered at {{shoppingList.getCreatedAt()|date('Y-m-d')}}
                             </p>
@@ -29,12 +29,12 @@
 
             <div class="col">
                 <p class="text-center">My deliveries</p>
-                <a class="d-center" href = "#" {#"{{ path('delivery_list') }}"#}>
+                <a class="d-center" href="{{ path('delivery_finder') }}">
                     <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
                 </a>
                 {% for delivery in deliveries %}
                     <div>
-                        <a href = {{path('delivery_list_display', {'id':delivery.getId()}) }}>
+                        <a href = {{path('delivery_details', {'id':delivery.id }) }}>
                             <p class="d-inline float-left">
                                 Delivered at {#{{delivery.getCreatedAt()|date('Y-m-d')}} #} "some day"
                             </p>

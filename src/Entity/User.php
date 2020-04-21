@@ -73,6 +73,11 @@ class User implements UserInterface
         $this->shoppingLists = new ArrayCollection();
     }
 
+    public function getFullname(): string
+    {
+        return ucfirst($this->firstname). ' ' .ucfirst($this->lastname);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

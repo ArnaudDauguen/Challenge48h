@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Hello DeliveryController!{% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center">
+    <div class="col-4">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {% set data = null %}
+                {% for choice in form.ShoppingLists %}
+                    {% set data = choice.parent.vars.choices[choice.vars.value].data %}
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between bg-info">
+                            <p><i class="fa fa-user mr-2"></i><span>{{ data.user.fullname }}</span></p>
+                            {{ form_widget(choice) }}
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <p>A livrer au plus tard le {{ data.expectedDeliveryEnd|date('d/m/Y') }}</p>
+                            <p><span class="mr-2">{{ data.totalPrice }}€</span><i class="fa fa-shopping-basket"></i></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row d-flex justify-content-around">
+                <div class="col-6">
+                    <a href="{{ path('index') }}" class="btn btn-block btn-danger">Annuler</a>
+                </div>
+                <div class="col-6">
+                    {{ form_widget(form.confirmer, {attr: {class: 'btn-success btn-block'}}) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

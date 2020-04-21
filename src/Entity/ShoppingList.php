@@ -79,6 +79,11 @@ class ShoppingList
         $this->products = new ArrayCollection();
     }
 
+    public function isDelivered(): bool
+    {
+        return (!empty($this->deliveredAt) && $this->hasClientAccepted && $this->hasDeliveryAccepted);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
