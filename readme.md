@@ -69,7 +69,7 @@ https://docs.google.com/spreadsheets/d/1xpiJ3AvW5l4EnjRoyrckZkVDSRcZWYOkEhNTe0-y
 
 
 # Annexes 
-#### Prototype graphique
+#### Prototypes graphiques
 
 ![Prototype](/readme_folder/images/unknown.png "Prototype")
 ![Prototype](/readme_folder/images/unknown1.png "Prototype")
