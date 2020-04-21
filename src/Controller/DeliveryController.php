@@ -25,7 +25,7 @@ class DeliveryController extends AbstractController
         $shoppingLists = $this->em->getRepository(ShoppingList::class)->findAll();
         $filteredShoppingLists = [];
         foreach($shoppingLists as $shoppingList){
-            if(!empty($shoppingList->getDeliveredAt()))
+            if(empty($shoppingList->getDeliveredAt()))
                 array_push($filteredShoppingLists, $shoppingList);
         }
         dump($filteredShoppingLists);
