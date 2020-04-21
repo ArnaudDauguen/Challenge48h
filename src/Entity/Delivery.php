@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DeliveryRepository")
@@ -80,5 +81,22 @@ class Delivery
         }
 
         return $this;
+    }
+
+    public function isComplete() : bool
+    {
+        foreach($this->ShoppingLists as $shoppingList){
+            if(!$shoppingList->isDelivered())
+                return false;
+        }
+        return true;
+    }
+    public function getDeliveryDate(): ?string
+    {
+        foreach($this->ShoppingLists as $shoppingList){
+            if(!empty($shoppingList->getDeliveredAt()))
+                return $shoppingList->getDeliveredAt()->format('Y-m-d');
+        }
+        return "never";
     }
 }

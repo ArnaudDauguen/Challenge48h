@@ -1,42 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p class="text-center">My delivery requests</p>
-                <a class="d-center" href="{{ path('shopping_list') }}">
-                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
+<div class="row d-flex justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p>Mes listes de courses</p>
+            </div>
+            <div class="card-body">
+                <a class="card-text d-flex justify-content-between" href="{{ path('shopping_list') }}">
+                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/> {# je sais pas why, faut en mettre pls pour centrer :/ #}
                 </a>
                 {% for shoppingList in requestedDeliveries %}
-                    <div>
-                        <a href = {{path('shopping_details', {'id': shoppingList.id}) }}>
-                            <p class="d-inline float-left">
-                                Ordered at {{shoppingList.getCreatedAt()|date('Y-m-d')}}
-                            </p>
-                            <p class="d-inline float-right">
-                                {{shoppingList.getTotalPrice()}}€
-                            </p>
-                        </a>
-                    </div>
+                    <a href = {{path('shopping_details', {'id': shoppingList.id}) }} class="card-text d-flex justify-content-between mb-2 {{ shoppingList.isDelivered ? 'bg-success text-white' : 'bg-warning text-dark' }}">
+                        <p>Commande du {{ shoppingList.createdAt|date('Y-m-d') }}</p>
+                        <p>Statut : {{ shoppingList.isDelivered ? 'Livrée' : 'En attente' }}</p>
+                        <p>{{ shoppingList.totalPrice }} €</p>
+                    </a>
                 {% endfor %}
             </div>
-
-
-            <div class="col">
+            <div class="d-flex justify-content-between card-footer ">
+                {% if requestedDeliveries is not null %}<p>Total de courses passées : {{ requestedDeliveries|length }}</p>{% endif %}
             </div>
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <p>Mes livraisons de courses</p>
+            </div>
+            <div class="card-body">
+                <a class="card-text d-flex justify-content-between" href="{{ path('delivery_finder') }}">
+                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/> {# je sais pas why, faut en mettre pls pour centrer :/ #}
+                </a>
+                {% for delivery in deliveries %}
+                    <a href = {{path('delivery_details', {'id': delivery.id}) }} class="card-text d-flex justify-content-between mb-2 {{ delivery.isComplete() ? 'bg-success text-white' : 'bg-warning text-dark' }}">
+                        <p>livraison du {{ delivery.getDeliveryDate() }}</p>
+                        <p>Statut : {{ delivery.isComplete() ? 'Validée' : 'En attente' }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-between card-footer ">
+                {% if deliveries is not null %}<p>Total de livraisons effectuées : {{ deliveries|length }}</p>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+    {# <div class="container">
+        <div class="row">
 
 
             <div class="col">
-                <p class="text-center">My deliveries</p>
-                <a class="d-center" href="{{ path('delivery_finder') }}">
-                    <img src={{ asset('img/plusIcon.jpg') }} alt="plus icon"/>
-                </a>
                 {% for delivery in deliveries %}
                     <div>
                         <a href = {{path('delivery_details', {'id':delivery.id }) }}>
                             <p class="d-inline float-left">
-                                Delivered at {#{{delivery.getCreatedAt()|date('Y-m-d')}} #} "some day"
+                                Delivered at {{delivery.getCreatedAt()|date('Y-m-d')}} "some day"
                             </p>
                             <p class="d-inline float-right">
                                 {{delivery.getShoppingLists()|length}}
@@ -46,5 +66,5 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
+    </div> #}
 {% endblock %}
