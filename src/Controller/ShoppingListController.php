@@ -50,7 +50,7 @@ class ShoppingListController extends AbstractController
             $total = 0;
             foreach ($shoppingList->getProducts() as $product)
             {
-                $total += $product->getProduct()->getPrice();
+                $total += $product->getProduct()->getPrice() * $product->getQuantity();
             }
             $shoppingList->setTotalPrice($total);            
             

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{{ path('index') }}">Cocoursage</a>
+  <a class="navbar-brand" href="{{ path('index') }}">CoCourses</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,10 +8,11 @@
   {% if app.user %}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a class="nav-link" href="{{ path('index') }}">Accueil</a></li>
+      <li class="nav-item"><a href="{{ path('shopping_list') }}" class="nav-link">Nouvelle liste de courses</a></li>
     </ul>
     <p class="form-inline my-2 my-lg-0">
       <a class="nav-link" href="{{ path('logout') }}">
-        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnexion</button>
       </a>
     </p>
     {% endif %}

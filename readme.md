@@ -1,6 +1,7 @@
 # <p align="center"> 🛒 **CoCourses** 🛒
 
-## <p align="center">**Challenge 48h** 
+## <p align="center">**Challenge 48h**
+
 #### <p align="center"> **Dauguen Arnaud - Duart Quentin - Flores Anthony - Sella Justin**
 
 #
@@ -56,22 +57,21 @@ Un serveur web et un serveur base de données pour le moment. Note : nous pouvon
 Onglet gantt
 https://docs.google.com/spreadsheets/d/1xpiJ3AvW5l4EnjRoyrckZkVDSRcZWYOkEhNTe0-ypkU/edit?usp=sharing
 
-
-
 ## **Diagramme de GANTT**
 
 Onglet Budget
-https://docs.google.com/spreadsheets/d/1xpiJ3AvW5l4EnjRoyrckZkVDSRcZWYOkEhNTe0-ypkU/edit?usp=sharing
-
+https://docs.google.com/spreadsheets/d/1mv3uT2LTPALx8Z5l5oaMWc7nugBOWJ_-Z2VxXd4p1EY/edit?usp=sharing
 
 # **Installation & Lancement**
 
 
 
 # Annexes 
+
 #### Prototypes graphiques
 
 ![Prototype](/readme_folder/images/unknown.png "Prototype")
 ![Prototype](/readme_folder/images/unknown1.png "Prototype")
 ![Prototype](/readme_folder/images/unknown2.png "Prototype")
 ![Prototype](/readme_folder/images/unknown3.png "Prototype")
+

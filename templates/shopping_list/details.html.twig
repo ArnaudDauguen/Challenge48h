@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShoppingListController!{% endblock %}
-
 {% block body %}
 <div class="row d-flex justify-content-center">
     <div class="col-4">
@@ -23,8 +21,10 @@
                     <p>Livraison reçu le {{ shopping_list.deliveredAt|date('d/m/Y') }}</p>
                 {% elseif shopping_list.hasClientAccepted %}
                     <p>En attente de confirmation du livreur...</p>
-                {% else %}
+                {% elseif shopping_list.delivery is not defined %}
                     <a href="{{ path('shopping_validate', {id: shopping_list.id}) }}" class="btn btn-success">Confirmer la réception</a>
+                {% else %}
+                    <p>En attente de la prise en charge de votre commande...</p>
                 {% endif %}
                 {% if shopping_list.totalPrice is not null %}<p>Total : {{ shopping_list.totalPrice }} €</p>{% endif %}
             </div>
