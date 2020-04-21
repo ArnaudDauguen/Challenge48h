@@ -63,7 +63,14 @@ Onglet Budget
 https://docs.google.com/spreadsheets/d/1mv3uT2LTPALx8Z5l5oaMWc7nugBOWJ_-Z2VxXd4p1EY/edit?usp=sharing
 
 # **Installation & Lancement**
+Il faut installer mysql, php et créer un virtualhost.
 
+Suite à ça, il faut modifier le fichier .env.example à la ligne ```DATABASE_URL=mysql://root:root@127.0.0.1:3006:cocoursage```
+
+root:root doit être remplacé par le nom d'utilisateur et le mot de passe pour se connecter à la base de données.
+
+Il faut ensuite lancer la commande 
+```bin/console d:u:c```
 
 
 # Annexes 
