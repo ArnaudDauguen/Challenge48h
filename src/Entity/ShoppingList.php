@@ -69,6 +69,11 @@ class ShoppingList
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2)
+     */
+    private $totalPrice;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -214,6 +219,18 @@ class ShoppingList
                 $product->setShoppingList(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?string
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(string $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
