@@ -65,4 +65,34 @@ class ShoppingListController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/shopping/validate/{id}", name="shopping_validate")
+     */
+    public function validate(int $id)
+    {
+        $list = $this->em->getRepository(ShoppingList::class)->findOneBy(['id' => $id]);
+        if (empty($list)) return $this->redirectToRoute('index');
+
+        if ($list->getUser() == $this->getUser())
+        {
+            $list->setHasClientAccepted(true);
+            $this->em->persist($list);
+            $this->em->flush();
+
+            return $this->redirectToRoute('shopping_details', ['id' => $id]);
+        } 
+        else if ($list->getDelivery()->getUser() == $this->getUser())
+        {
+            $list
+                ->setDeliveredAt(new \DateTime('now'))
+                ->setHasDeliveryAccepted(true);
+            $this->em->persist($list);
+            $this->em->flush();
+
+            return $this->redirectToRoute('delivery_details', ['id' => $list->getDelivery()->getId()]);
+        }
+        
+        return $this->redirectToRoute('index');
+    }
 }

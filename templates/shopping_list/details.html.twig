@@ -19,7 +19,13 @@
                 {% endfor %}
             </div>
             <div class="d-flex justify-content-between card-footer {{ shopping_list.isDelivered ? 'bg-success' : 'bg-warning' }}">
-                <p>Statut : {{ shopping_list.isDelivered ? 'Livré' : 'En attente' }}</p>
+                {% if shopping_list.isDelivered %}
+                    <p>Livraison reçu le {{ shopping_list.deliveredAt|date('d/m/Y') }}</p>
+                {% elseif shopping_list.hasClientAccepted %}
+                    <p>En attente de confirmation du livreur...</p>
+                {% else %}
+                    <a href="{{ path('shopping_validate', {id: shopping_list.id}) }}" class="btn btn-success">Confirmer la réception</a>
+                {% endif %}
                 {% if shopping_list.totalPrice is not null %}<p>Total : {{ shopping_list.totalPrice }} €</p>{% endif %}
             </div>
         </div>
