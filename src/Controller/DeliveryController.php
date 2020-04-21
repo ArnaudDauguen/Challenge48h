@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Delivery;
+use App\Entity\ShoppingList;
 use App\Form\DeliveryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,8 +22,14 @@ class DeliveryController extends AbstractController
      */
     public function index(Request $request)
     {
-        $deliveries = $this->em->getRepository(Delivery::class)->findBy(['user' => $this->getUser()]);
-        if (sizeof($deliveries) > 0) return $this->redirectToRoute('index');
+        $shoppingLists = $this->em->getRepository(ShoppingList::class)->findAll();
+        $filteredShoppingLists = [];
+        foreach($shoppingLists as $shoppingList){
+            if(!empty($shoppingList->getDeliveredAt()))
+                array_push($filteredShoppingLists, $shoppingList);
+        }
+        dump($filteredShoppingLists);
+        if (sizeof($filteredShoppingLists) <= 0) return $this->redirectToRoute('index');
 
         $form = $this->createForm(DeliveryType::class);
         $form->handleRequest($request);
