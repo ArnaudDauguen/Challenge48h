@@ -21,7 +21,7 @@
     "imports-loader": "^0.8.0",
     "mdbootstrap": "^4.9.0",
     "node-waves": "^0.7.6",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "webpack-jquery-ui": "^2.0.1",
     "wow.js": "^1.2.2"
   }
